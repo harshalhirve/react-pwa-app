@@ -1,1 +1,1 @@
-React Proggressive Web App Demo - with Webpack 4 and Babel 7
+React Proggressive Web App Demo - with Webpack 4 and Babel 7 (PWA Integration is in progress...)
