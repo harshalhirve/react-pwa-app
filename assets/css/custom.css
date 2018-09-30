@@ -1,0 +1,22 @@
+body {
+  font-family: "Roboto Condensed", sans-serif;
+  margin: 0px;
+}
+table thead tbody tr td {
+  font-family: "Roboto Condensed", sans-serif;
+  font-size: 12px;
+}
+.textBox {
+  font-family: "Roboto Condensed", sans-serif;
+  font-size: 20px;
+}
+.textBox {
+  font-size: 12px;
+  padding: 3px;
+}
+.textBoxErr {
+  font-size: 12px;
+  padding: 3px;
+  border: 1px solid darkred;
+  background: wheat;
+}

@@ -1,0 +1,3 @@
+npm install --save @babel/polyfill @babel/runtime brotli-webpack-plugin compression-webpack-plugin jquery react react-dom react-loadable react-redux react-router-dom redux redux-thunk/
+
+npm install --save-dev @babel/cli @babel/core @babel/plugin-syntax-dynamic-import @babel/plugin-transform-runtime @babel/preset-env @babel/preset-react babel-loader css-loader file-loader html-loader html-webpack-plugin mini-css-extract-plugin optimize-css-assets-webpack-plugin rimraf style-loader uglifyjs-webpack-plugin webpack webpack-cli webpack-dev-server webpack-merge
