@@ -6,7 +6,7 @@
   "private": true,
   "scripts": {
     "start": "rimraf dist && webpack-dev-server --mode development --hot --open",
-    "build": "SET NODE_ENV=production && rimraf dist && webpack --config ./config/webpack.prod.js --mode production"    
+    "build": "SET NODE_ENV=production && rimraf dist && webpack --config ./config/webpack.prod.js --mode production"
   },
   "keywords": [],
   "author": "harshal s hirve",
