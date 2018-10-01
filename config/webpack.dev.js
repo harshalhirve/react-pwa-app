@@ -22,7 +22,7 @@ module.exports = webpackMerge(commonConfig, {
   devServer: {
     inline: true,
     overlay: true,
-    port: 3000,
+    port: c.PORT,
     historyApiFallback: true,
     stats: "minimal",
     hot: true,
