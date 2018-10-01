@@ -1,6 +1,6 @@
 workbox.routing.registerRoute(
   /https:\/\/jsonplaceholder\.typicode\.com/,
-  workbox.strategies.networkFirst()
+  workbox.strategies.staleWhileRevalidate()
 );
 
 workbox.precaching.precacheAndRoute(self.__precacheManifest);
