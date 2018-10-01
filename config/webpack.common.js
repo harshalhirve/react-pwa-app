@@ -73,7 +73,17 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       template: "./index.html",
-      filename: "./index.html"
+      filename: "./index.html",
+      collapseWhitespace: true,
+      keepClosingSlash: true,
+      minifyJS: true,
+      minifyCSS: true,
+      removeComments: true,
+      removeEmptyAttributes: true,
+      removeRedundantAttributes: true,
+      removeScriptTypeAttributes: true,
+      removeStyleLinkTypeAttributes: true,
+      useShortDoctype: true
     }),
     new webpack.ProvidePlugin({
       $: "jquery",

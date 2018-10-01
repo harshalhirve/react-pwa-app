@@ -16,8 +16,8 @@ module.exports = webpackMerge(commonConfig, {
   output: {
     path: path.resolve(rootDir, "dist"),
     publicPath: "./",
-    filename: "[name].[contenthash].js",
-    chunkFilename: "[id].chunk.js"
+    filename: "[name].[chunkhash].js",
+    chunkFilename: "[name].[chunkhash].js"
   },
 
   optimization: {
@@ -30,7 +30,23 @@ module.exports = webpackMerge(commonConfig, {
             removeAll: true
           }
         },
-        canPrint: true
+        canPrint: true,
+        sourceMap: "cheap-module-source-map",
+        mangle: true,
+        beautify: false,
+        comments: false,
+        compress: {
+          unused: true,
+          dead_code: true,
+          warnings: false,
+          drop_debugger: true,
+          conditionals: true,
+          evaluate: true,
+          drop_console: true,
+          sequences: true,
+          booleans: true
+        },
+        extractComments: true
       }),
       new CompressionPlugin({
         algorithm: "gzip"
