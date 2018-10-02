@@ -22,7 +22,10 @@ module.exports = webpackMerge(commonConfig, {
 
   optimization: {
     minimizer: [
-      new UglifyJsPlugin({}),
+      new UglifyJsPlugin({
+        extractComments: "all",
+        parallel: true
+      }),
       new OptimizeCssAssetsPlugin({
         cssProcessor: require("cssnano"),
         cssProcessorOptions: {
