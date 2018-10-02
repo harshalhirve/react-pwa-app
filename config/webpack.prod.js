@@ -67,7 +67,8 @@ module.exports = webpackMerge(commonConfig, {
     }),
     new InjectManifest({
       swSrc: "./src/src-sw.js",
-      swDest: "sw.js"
+      swDest: "sw.js",
+      precacheManifestFilename: "wb-manifest.[manifestHash].js"
     })
   ]
 });

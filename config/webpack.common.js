@@ -1,6 +1,7 @@
 const webpack = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+var ProgressBarPlugin = require("progress-bar-webpack-plugin");
 const devMode = process.env.NODE_ENV
   ? process.env.NODE_ENV.trim() !== "production"
   : true;
@@ -93,7 +94,8 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: devMode ? "[name].css" : "[name].[hash].css",
       chunkFilename: devMode ? "[id].css" : "[id].[hash].css"
-    })
+    }),
+    new ProgressBarPlugin()    
   ],
 
   optimization: {
