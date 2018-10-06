@@ -1,5 +1,6 @@
 const webpack = require("webpack");
 const webpackMerge = require("webpack-merge");
+const WorkboxWebpackPlugin = require("workbox-webpack-plugin");
 const commonConfig = require("./webpack.common.js");
 const path = require("path");
 const rootDir = path.resolve(__dirname, "..");
@@ -36,6 +37,10 @@ module.exports = webpackMerge(commonConfig, {
         NODE_ENV: JSON.stringify("development"),
         WEBPACK: true
       }
+    }),
+    new WorkboxWebpackPlugin.InjectManifest({
+      swSrc: "./src/src-sw.js",
+      swDest: "sw.js"
     })
   ]
 });

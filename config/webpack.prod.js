@@ -5,6 +5,7 @@ const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 const CompressionPlugin = require("compression-webpack-plugin");
 const BrotliPlugin = require("brotli-webpack-plugin");
+const WorkboxWebpackPlugin = require("workbox-webpack-plugin");
 const path = require("path");
 const rootDir = path.resolve(__dirname, "..");
 
@@ -72,6 +73,10 @@ module.exports = webpackMerge(commonConfig, {
         NODE_ENV: JSON.stringify("production"),
         WEBPACK: true
       }
+    }),
+    new WorkboxWebpackPlugin.InjectManifest({
+      swSrc: "./src/src-sw.js",
+      swDest: "sw.js"
     })
   ]
 });

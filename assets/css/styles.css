@@ -1,0 +1,39 @@
+.textBox {
+  font-family: "Roboto Condensed", sans-serif;
+  font-size: 20px;
+}
+.textBox {
+  font-size: 16px;
+  padding: 3px;
+}
+.textBoxErr {
+  font-size: 16px;
+  padding: 3px;
+  border: 1px solid darkred;
+  background-color: #ffebee;
+}
+.button {
+  font-family: "Roboto Condensed", sans-serif;
+  font-size: 16px;
+  padding: 5px;
+}
+.sucMsg {
+  font-size: 16px;
+  text-align: center;
+  background-color: #dcedc8;
+  border: 1px solid #558b2f;
+  color: #1b5e20;
+  padding: 10px;
+}
+.errMsg {
+  font-size: 16px;
+  text-align: center;
+  background-color: #ffcdd2;
+  border: 1px solid #ff1744;
+  color: #b71c1c;
+  padding: 10px;
+}
+.pageTitle {
+  font-size: 18px;
+  font-weight: bold;
+}

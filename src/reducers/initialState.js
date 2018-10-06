@@ -6,10 +6,14 @@ export default {
     lastName: "",
     email: "",
     token: "",
-    errorCode: null,
-    error: ""
+    errorCode: "",
+    errorMsg: ""
   },
   posts: {
-    list: []
+    sucMsg: "",
+    errorCode: "",
+    errorMsg: "",
+    list: [],
+    details: {}
   }
 };

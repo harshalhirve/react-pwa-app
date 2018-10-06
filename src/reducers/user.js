@@ -6,8 +6,8 @@ export default function user(state = initialState.user, action) {
     case a.CLEAR_ALL_USER_MSGS:
       return {
         ...state,
-        errorCode: null,
-        error: ""
+        errorCode: "",
+        errorMsg: ""
       };
     case a.USER_LOGIN_SUCCESS:
       return {
@@ -18,7 +18,7 @@ export default function user(state = initialState.user, action) {
         ...state,
         loggedIn: false,
         errorCode: action.errorObj.errorCode,
-        error: action.errorObj.error
+        errorMsg: action.errorObj.error
       };
     case a.USER_LOGOUT_SUCCESS:
       return initialState.user;
@@ -26,7 +26,7 @@ export default function user(state = initialState.user, action) {
       return {
         ...state,
         errorCode: action.errorObj.errorCode,
-        error: action.errorObj.error
+        errorMsg: action.errorObj.error
       };
     default:
       return state;

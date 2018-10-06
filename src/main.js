@@ -6,6 +6,7 @@ import configureStore from "./store/configureStore";
 import RootComponent from "./components/RootComponent";
 import { validateLoginSuccess } from "./actions/userActions";
 import * as cf from "./commonFunctions";
+import "../assets/css/gstyles.css";
 
 const store = configureStore();
 

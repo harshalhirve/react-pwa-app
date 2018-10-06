@@ -13,10 +13,39 @@ workbox.core.setCacheNameDetails({
 
 //apis
 workbox.routing.registerRoute(
-  /https:\/\/jsonplaceholder\.typicode\.com/,
+  "https://jsonplaceholder.typicode.com",
   workbox.strategies.networkFirst({
     cacheName: "posts-data"
-  })
+  }),
+  "GET"
+);
+workbox.routing.registerRoute(
+  "https://jsonplaceholder.typicode.com",
+  workbox.strategies.networkFirst({
+    cacheName: "posts-data"
+  }),
+  "POST"
+);
+workbox.routing.registerRoute(
+  "https://jsonplaceholder.typicode.com",
+  workbox.strategies.networkFirst({
+    cacheName: "posts-data"
+  }),
+  "PATCH"
+);
+workbox.routing.registerRoute(
+  "https://jsonplaceholder.typicode.com",
+  workbox.strategies.networkFirst({
+    cacheName: "posts-data"
+  }),
+  "DELETE"
+);
+workbox.routing.registerRoute(
+  "https://jsonplaceholder.typicode.com",
+  workbox.strategies.networkFirst({
+    cacheName: "posts-data"
+  }),
+  "PUT"
 );
 
 //images

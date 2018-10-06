@@ -1,7 +1,7 @@
 import React from "react";
 import PostListRow from "./PostListRow";
 
-const PostListRows = ({ loading, postList }) => {
+const PostListRows = ({ loading, postList, clearAllPostMsgs, deletePost }) => {
   if (loading) {
     return (
       <tr>
@@ -16,7 +16,13 @@ const PostListRows = ({ loading, postList }) => {
     );
   } else {
     return postList.map(record => {
-      return <PostListRow record={record} />;
+      return (
+        <PostListRow
+          record={record}
+          clearAllPostMsgs={clearAllPostMsgs}
+          deletePost={deletePost}
+        />
+      );
     });
   }
 };

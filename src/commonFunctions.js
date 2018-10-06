@@ -5,7 +5,7 @@ export function getAxios(type) {
   return axios.create({
     baseURL: type === "user" ? c.USER_API_BASE_URL : c.POST_API_BASE_URL,
     headers: {
-      "Content-Type": "application/json"
+      "Content-type": "application/json; charset=UTF-8"
     }
   });
 }
@@ -31,8 +31,6 @@ export function throwError(errObj) {
     errorCode: parsedErrObj.response.status
       ? parsedErrObj.response.status
       : null,
-    error: parsedErrObj.response.data.error
-      ? parsedErrObj.response.data.error
-      : ""
+    errorMsg: "An error occurred. Please retry."
   };
 }

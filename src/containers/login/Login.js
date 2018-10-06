@@ -3,6 +3,8 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { Redirect } from "react-router-dom";
 import * as userActions from "../../actions/userActions";
+import styles from "../../../assets/css/styles.css";
+import image1 from "../../../assets/images/img1.jpg";
 
 class HomeComponent extends Component {
   constructor() {
@@ -52,6 +54,7 @@ class HomeComponent extends Component {
       });
     }
   }
+  
   render() {
     const { loggedIn } = this.props;
     if (loggedIn) {
@@ -78,6 +81,11 @@ class HomeComponent extends Component {
           <table border="0" align="center" cellPadding="2" cellSpacing="2">
             <tbody>
               <tr>
+                <td colSpan="2" align="center">
+                  <img src={image1} width="100" />
+                </td>
+              </tr>
+              <tr>
                 <td>Email</td>
                 <td>
                   <input
@@ -85,7 +93,9 @@ class HomeComponent extends Component {
                     name="email"
                     value={this.state.email}
                     maxLength="200"
-                    className={this.state.emailErr ? "textBoxErr" : "textBox"}
+                    className={
+                      this.state.emailErr ? styles.textBoxErr : styles.textBox
+                    }
                     onChange={this.handleChange}
                     required
                   />
@@ -99,7 +109,9 @@ class HomeComponent extends Component {
                     name="password"
                     value={this.state.password}
                     maxLength="20"
-                    className={this.state.emailErr ? "textBoxErr" : "textBox"}
+                    className={
+                      this.state.emailErr ? styles.textBoxErr : styles.textBox
+                    }
                     onChange={this.handleChange}
                     required
                   />
@@ -111,6 +123,7 @@ class HomeComponent extends Component {
                     type="submit"
                     disabled={this.props.loading ? true : false}
                     value={this.props.loading ? "Processing" : "Login"}
+                    className={styles.button}
                   />
                 </td>
               </tr>

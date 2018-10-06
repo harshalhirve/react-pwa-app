@@ -1,6 +1,7 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
-const PostListRow = ({ record }) => {
+const PostListRow = ({ record, clearAllPostMsgs, deletePost }) => {
   return (
     <tr key={record.id}>
       <td>
@@ -8,13 +9,32 @@ const PostListRow = ({ record }) => {
           <tbody>
             <tr>
               <td>
-                {record.id}
-                .&nbsp;
+                <b>({record.id})</b>
+                &nbsp;
                 {record.title}
               </td>
             </tr>
             <tr>
               <td>{record.body}</td>
+            </tr>
+            <tr>
+              <td>
+                <Link to={`/post/edit/${record.id}`} onClick={clearAllPostMsgs}>
+                  Edit
+                </Link>
+                &nbsp;&nbsp;|&nbsp;&nbsp;
+                <a
+                  href="#"
+                  onClick={() => {
+                    deletePost(record.id);
+                  }}
+                >
+                  Delete
+                </a>
+              </td>
+            </tr>
+            <tr>
+              <td>&nbsp;</td>
             </tr>
           </tbody>
         </table>

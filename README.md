@@ -1,1 +1,1 @@
-React Proggressive Web App Demo - with Webpack 4 and Babel 7 (PWA Integration is in progress...)
+React Redux Boilerplate PWA with Webpack 4 & Babel 7. Has basic user authentication & POSTS CRUD.

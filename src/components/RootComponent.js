@@ -28,6 +28,16 @@ class RootComponent extends Component {
                     path="/posts"
                     component={loadables.PostList}
                   />
+                  <PrivateRoute
+                    authed={loggedIn}
+                    path="/post/addnew"
+                    component={loadables.PostAddNew}
+                  />
+                  <PrivateRoute
+                    authed={loggedIn}
+                    path="/post/edit/:id"
+                    component={loadables.PostEdit}
+                  />
                   <Route path="**" component={NotFoundComponent} />
                 </Switch>
               </ErrorHandler>
