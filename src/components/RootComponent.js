@@ -1,14 +1,25 @@
 import React, { Component } from "react";
 import { Switch, Route } from "react-router-dom";
 import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import * as connectionActions from "../actions/connectionActions";
 import ErrorHandler from "./common/ErrorHandler";
 import NotFoundComponent from "./notfound/NotFoundComponent";
 import PrivateRoute from "../components/hoc/PrivateRoute";
 import * as loadables from "./lodables";
 
 class RootComponent extends Component {
+  componentDidMount() {
+    window.addEventListener("online", () => {
+      this.props.setConnectionOn();
+    });
+    window.addEventListener("offline", () => {
+      this.props.setConnectionOff();
+    });
+  }
+
   render() {
-    const { loggedIn, loading } = this.props;
+    const { loggedIn } = this.props;
     return (
       <table
         border="0"
@@ -51,9 +62,17 @@ class RootComponent extends Component {
 
 function mapStateToProps(state) {
   return {
-    loggedIn: state.user.loggedIn,
-    loading: state.loading
+    loggedIn: state.user.loggedIn
   };
 }
 
-export default connect(mapStateToProps)(RootComponent);
+function mapDispatchToProps(dispatch) {
+  return {
+    ...bindActionCreators(Object.assign({}, connectionActions), dispatch)
+  };
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(RootComponent);

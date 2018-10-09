@@ -37,3 +37,10 @@
   font-size: 18px;
   font-weight: bold;
 }
+.offlineMsg {
+  /* offline */
+  font-size: 16px;
+  text-align: center;
+  color: #b71c1c;
+  padding: 10px;
+}

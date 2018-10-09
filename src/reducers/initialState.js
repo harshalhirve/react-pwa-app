@@ -1,4 +1,5 @@
 export default {
+  connection: undefined,
   loading: false,
   user: {
     loggedIn: false,

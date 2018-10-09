@@ -34,3 +34,9 @@ export function throwError(errObj) {
     errorMsg: "An error occurred. Please retry."
   };
 }
+
+export function checkConnection() {
+  return new Promise(resolve => {
+    resolve(navigator.onLine);
+  });
+}

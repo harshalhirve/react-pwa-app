@@ -13,7 +13,8 @@ class HomeComponent extends Component {
       email: "hh@hh.com",
       emailErr: false,
       password: "password1234",
-      passwordErr: false
+      passwordErr: false,
+      online: navigator.onLine
     };
     this.handleChange = this.handleChange.bind(this);
     this.validateForm = this.validateForm.bind(this);
@@ -33,6 +34,7 @@ class HomeComponent extends Component {
     return new Promise(resolve => {
       this.setState(
         {
+          online: navigator.onLine,
           emailErr: this.state.email.trim() === "" ? true : false,
           passwordErr: this.state.password.trim() === "" ? true : false
         },
@@ -47,16 +49,21 @@ class HomeComponent extends Component {
 
   async handleSubmit(e) {
     e.preventDefault();
-    if (await this.validateForm()) {
-      await this.props.validateLogin({
-        email: this.state.email,
-        password: this.state.password
-      });
+    if (this.props.connection) {
+      if (await this.validateForm()) {
+        await this.props.validateLogin({
+          email: this.state.email,
+          password: this.state.password
+        });
+      }
     }
   }
-  
+
   render() {
-    const { loggedIn } = this.props;
+    const { loggedIn, loading, connection } = this.props;
+
+    console.log("login connection=", connection);
+
     if (loggedIn) {
       return (
         <Redirect
@@ -67,7 +74,7 @@ class HomeComponent extends Component {
       );
     } else {
       let loadingTr = "";
-      if (this.props.loading) {
+      if (loading) {
         loadingTr = (
           <tr>
             <td colSpan="2" align="center">
@@ -80,6 +87,19 @@ class HomeComponent extends Component {
         <form name="form1" onSubmit={this.handleSubmit}>
           <table border="0" align="center" cellPadding="2" cellSpacing="2">
             <tbody>
+              {!connection && (
+                <>
+                  <tr>
+                    <td
+                      align="center"
+                      colSpan="2"
+                      className={styles.offlineMsg}
+                    >
+                      You are offline! Please check your connection.
+                    </td>
+                  </tr>
+                </>
+              )}
               <tr>
                 <td colSpan="2" align="center">
                   <img src={image1} width="100" />
@@ -121,9 +141,9 @@ class HomeComponent extends Component {
                 <td colSpan="2" align="center">
                   <input
                     type="submit"
-                    disabled={this.props.loading ? true : false}
-                    value={this.props.loading ? "Processing" : "Login"}
+                    value={loading ? "Processing..." : "Login"}
                     className={styles.button}
+                    disabled={!this.state.online || loading ? true : false}
                   />
                 </td>
               </tr>
@@ -137,9 +157,11 @@ class HomeComponent extends Component {
 
 function mapStateToProps(state) {
   //console.log("user state = ", state.user);
+  //console.log(state);
   return {
     ...state.user,
-    loading: state.loading
+    loading: state.loading,
+    connection: state.connection
   };
 }
 

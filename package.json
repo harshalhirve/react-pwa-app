@@ -5,8 +5,8 @@
   "main": "babel.config.js",
   "private": true,
   "scripts": {
-    "start": "rimraf dist && webpack-dev-server --mode development --hot --open",
-    "build": "SET NODE_ENV=production && rimraf dist && webpack --config ./config/webpack.prod.js --mode production"
+    "start": "rimraf dist && webpack-dev-server --hot --open",
+    "build": "rimraf dist && webpack --config ./config/webpack.prod.js"
   },
   "keywords": [],
   "author": "harshal s hirve",
@@ -18,6 +18,7 @@
     "brotli-webpack-plugin": "^1.0.0",
     "compression-webpack-plugin": "^2.0.0",
     "jquery": "^3.3.1",
+    "prettysize": "^1.1.0",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
     "react-loadable": "^5.5.0",
@@ -43,6 +44,7 @@
     "progress-bar-webpack-plugin": "^1.11.0",
     "rimraf": "^2.6.2",
     "style-loader": "^0.23.0",
+    "terser-webpack-plugin": "^1.1.0",
     "uglifyjs-webpack-plugin": "^2.0.1",
     "webpack": "^4.20.2",
     "webpack-cli": "^3.1.2",
@@ -50,5 +52,11 @@
     "webpack-merge": "^4.1.4",
     "workbox-cli": "^3.6.2",
     "workbox-webpack-plugin": "^3.6.2"
-  }
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
 }

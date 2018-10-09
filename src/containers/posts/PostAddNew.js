@@ -7,6 +7,7 @@ import styles from "../../../assets/css/styles.css";
 import Header from "../common/Header";
 import TopLinks from "../../components/common/TopLinks";
 import ErrorMsg from "../../components/common/ErrorMsg";
+import * as cf from "../../commonFunctions";
 
 class PostAddNew extends Component {
   constructor() {
@@ -17,15 +18,12 @@ class PostAddNew extends Component {
       postTitleErr: false,
       postBody: "",
       postBodyErr: false,
-      isBlocking: false
+      isBlocking: false,
+      online: navigator.onLine
     };
     this.handleChange = this.handleChange.bind(this);
     this.validateForm = this.validateForm.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-  componentWillUnmount() {
-    this.props.clearPostErrMsgs();
   }
 
   handleChange(e) {
@@ -57,12 +55,15 @@ class PostAddNew extends Component {
   async handleSubmit(e) {
     e.preventDefault();
     this.props.clearPostErrMsgs();
-    if (await this.validateForm()) {
-      await this.props.saveNewPost({
-        title: this.state.postTitle,
-        body: this.state.postBody,
-        userId: 1
-      });
+    const netConnected = await cf.checkConnection();
+    if (netConnected) {
+      if (await this.validateForm()) {
+        await this.props.saveNewPost({
+          title: this.state.postTitle,
+          body: this.state.postBody,
+          userId: 1
+        });
+      }
     }
   }
 
@@ -121,6 +122,20 @@ class PostAddNew extends Component {
                             cellSpacing="0"
                           >
                             <tbody>
+                              {!this.state.online && (
+                                <>
+                                  <tr>
+                                    <td
+                                      colSpan="2"
+                                      align="center"
+                                      className={styles.offlineMsg}
+                                    >
+                                      You are offline! Please check your
+                                      connection.
+                                    </td>
+                                  </tr>
+                                </>
+                              )}
                               <tr>
                                 <td>Title</td>
                                 <td>
@@ -162,8 +177,12 @@ class PostAddNew extends Component {
                                   <input
                                     type="submit"
                                     value={loading ? "Saving..." : "Submit"}
-                                    disabled={loading ? true : false}
                                     className={styles.button}
+                                    disabled={
+                                      !this.state.online || loading
+                                        ? true
+                                        : false
+                                    }
                                   />
                                 </td>
                               </tr>

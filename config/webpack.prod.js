@@ -2,16 +2,16 @@ const webpack = require("webpack");
 const webpackMerge = require("webpack-merge");
 const commonConfig = require("./webpack.common.js");
 const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
-const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 const CompressionPlugin = require("compression-webpack-plugin");
 const BrotliPlugin = require("brotli-webpack-plugin");
+const TerserPlugin = require("terser-webpack-plugin");
 const WorkboxWebpackPlugin = require("workbox-webpack-plugin");
 const path = require("path");
 const rootDir = path.resolve(__dirname, "..");
 
 module.exports = webpackMerge(commonConfig, {
   mode: "production",
-
+  bail: true,
   output: {
     path: path.resolve(rootDir, "dist"),
     publicPath: "./",
@@ -31,9 +31,29 @@ module.exports = webpackMerge(commonConfig, {
       }
     },
     minimizer: [
-      new UglifyJsPlugin({
-        extractComments: "all",
-        parallel: true
+      new TerserPlugin({
+        terserOptions: {
+          parse: {
+            ecma: 8
+          },
+          compress: {
+            ecma: 5,
+            warnings: false,
+            comparisons: false,
+            inline: 2
+          },
+          mangle: {
+            safari10: true
+          },
+          output: {
+            ecma: 5,
+            comments: false,
+            ascii_only: true
+          }
+        },
+        parallel: true,
+        cache: true,
+        sourceMap: false
       }),
       new OptimizeCssAssetsPlugin({
         cssProcessor: require("cssnano"),
@@ -43,7 +63,6 @@ module.exports = webpackMerge(commonConfig, {
           }
         },
         canPrint: true,
-        sourceMap: "cheap-module-source-map",
         mangle: true,
         beautify: false,
         comments: false,
@@ -64,7 +83,8 @@ module.exports = webpackMerge(commonConfig, {
         algorithm: "gzip"
       }),
       new BrotliPlugin()
-    ]
+    ],
+    runtimeChunk: true
   },
 
   plugins: [

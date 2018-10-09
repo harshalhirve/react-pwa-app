@@ -7,6 +7,7 @@ import styles from "../../../assets/css/styles.css";
 import Header from "../common/Header";
 import TopLinks from "../../components/common/TopLinks";
 import ErrorMsg from "../../components/common/ErrorMsg";
+import * as cf from "../../commonFunctions";
 
 class PostEdit extends Component {
   constructor() {
@@ -17,7 +18,8 @@ class PostEdit extends Component {
       postTitleErr: false,
       postBody: "",
       postBodyErr: false,
-      isBlocking: false
+      isBlocking: false,
+      online: navigator.onLine
     };
     this.getPostDetails = this.getPostDetails.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -34,15 +36,18 @@ class PostEdit extends Component {
   }
 
   async getPostDetails() {
-    const {
-      match: { params }
-    } = this.props;
-    await this.props.getPostDetails(params.id);
-    this.setState({
-      postId: params.id,
-      postTitle: this.props.details.title,
-      postBody: this.props.details.body
-    });
+    const netConnected = await cf.checkConnection();
+    if (netConnected) {
+      const {
+        match: { params }
+      } = this.props;
+      await this.props.getPostDetails(params.id);
+      this.setState({
+        postId: params.id,
+        postTitle: this.props.details.title,
+        postBody: this.props.details.body
+      });
+    }
   }
 
   handleChange(e) {
@@ -128,69 +133,85 @@ class PostEdit extends Component {
                     {errorMsg !== "" && <ErrorMsg errorMsg={errorMsg} />}
                     <tr>
                       <td>
-                        {Object.keys(details).length > 0 && (
-                          <form name="form1" onSubmit={this.handleSubmit}>
-                            <Prompt
-                              when={this.state.isBlocking}
-                              message={() => "Leave without saving?"}
-                            />
-                            <table
-                              border="0"
-                              align="center"
-                              cellPadding="6"
-                              cellSpacing="0"
-                            >
-                              <tbody>
-                                <tr>
-                                  <td>Title</td>
-                                  <td>
-                                    <input
-                                      type="text"
-                                      name="postTitle"
-                                      value={this.state.postTitle}
-                                      maxLength="500"
-                                      className={
-                                        this.state.postTitleErr
-                                          ? styles.textBoxErr
-                                          : styles.textBox
-                                      }
-                                      size="100"
-                                      onChange={this.handleChange}
-                                    />
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <td>Body</td>
-                                  <td>
-                                    <textarea
-                                      name="postBody"
-                                      value={this.state.postBody}
-                                      maxLength="5000"
-                                      className={
-                                        this.state.postBodyErr
-                                          ? styles.textBoxErr
-                                          : styles.textBox
-                                      }
-                                      rows="5"
-                                      cols="101"
-                                      onChange={this.handleChange}
-                                    />
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <td colSpan="2" align="center">
-                                    <input
-                                      type="submit"
-                                      value={loading ? "Updating..." : "Update"}
-                                      disabled={loading ? true : false}
-                                      className={styles.button}
-                                    />
-                                  </td>
-                                </tr>
-                              </tbody>
-                            </table>
-                          </form>
-                        )}
+                        <form name="form1" onSubmit={this.handleSubmit}>
+                          <Prompt
+                            when={this.state.isBlocking}
+                            message={() => "Leave without saving?"}
+                          />
+                          <table
+                            border="0"
+                            align="center"
+                            cellPadding="6"
+                            cellSpacing="0"
+                          >
+                            <tbody>
+                              {!this.state.online && (
+                                <>
+                                  <tr>
+                                    <td
+                                      colSpan="2"
+                                      align="center"
+                                      className={styles.offlineMsg}
+                                    >
+                                      You are offline! Please check your
+                                      connection.
+                                    </td>
+                                  </tr>
+                                </>
+                              )}
+                              <tr>
+                                <td>Title</td>
+                                <td>
+                                  <input
+                                    type="text"
+                                    name="postTitle"
+                                    value={this.state.postTitle}
+                                    maxLength="500"
+                                    className={
+                                      this.state.postTitleErr
+                                        ? styles.textBoxErr
+                                        : styles.textBox
+                                    }
+                                    size="100"
+                                    onChange={this.handleChange}
+                                  />
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>Body</td>
+                                <td>
+                                  <textarea
+                                    name="postBody"
+                                    value={this.state.postBody}
+                                    maxLength="5000"
+                                    className={
+                                      this.state.postBodyErr
+                                        ? styles.textBoxErr
+                                        : styles.textBox
+                                    }
+                                    rows="5"
+                                    cols="101"
+                                    onChange={this.handleChange}
+                                  />
+                                </td>
+                              </tr>
+                              <tr>
+                                <td colSpan="2" align="center">
+                                  <input
+                                    type="submit"
+                                    value={loading ? "Processing..." : "Update"}
+                                    disabled={
+                                      !this.state.online || loading
+                                        ? true
+                                        : false
+                                    }
+                                    className={styles.button}
+                                  />
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </form>
                       </td>
                     </tr>
                   </tbody>

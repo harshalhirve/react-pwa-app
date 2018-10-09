@@ -1,7 +1,7 @@
 const webpack = require("webpack");
 const webpackMerge = require("webpack-merge");
-const WorkboxWebpackPlugin = require("workbox-webpack-plugin");
 const commonConfig = require("./webpack.common.js");
+const WorkboxWebpackPlugin = require("workbox-webpack-plugin");
 const path = require("path");
 const rootDir = path.resolve(__dirname, "..");
 const c = require("./webpack.constants");

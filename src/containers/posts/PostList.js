@@ -14,19 +14,11 @@ class PostList extends Component {
   constructor() {
     super();
     this.state = {
-      postId: "1"
+      online: navigator.onLine
     };
     this.getPostsList = this.getPostsList.bind(this);
     this.clearAllPostMsgs = this.clearAllPostMsgs.bind(this);
     this.deletePost = this.deletePost.bind(this);
-  }
-
-  componentDidMount() {
-    this.getPostsList();
-  }
-
-  componentWillUnmount() {
-    this.clearAllPostMsgs();
   }
 
   clearAllPostMsgs() {
@@ -39,11 +31,16 @@ class PostList extends Component {
 
   async deletePost(id) {
     this.clearAllPostMsgs();
-    await this.props.deletePost(id);
+    if (this.props.connection) {
+      await this.props.deletePost(id);
+    }
   }
 
   render() {
-    const { loading, list, sucMsg, errorMsg } = this.props;
+    const { loading, list, sucMsg, errorMsg, connection } = this.props;
+
+    console.log("post list connection=", connection);
+
     return (
       <table
         border="0"
@@ -62,6 +59,19 @@ class PostList extends Component {
             <td>
               <table border="0" align="center" cellPadding="2" cellSpacing="2">
                 <tbody>
+                  {!connection && (
+                    <>
+                      <tr>
+                        <td
+                          align="center"
+                          colSpan="2"
+                          className={styles.offlineMsg}
+                        >
+                          You are offline! Please check your connection.
+                        </td>
+                      </tr>
+                    </>
+                  )}
                   <tr>
                     <td className={styles.pageTitle} align="left">
                       Post List
@@ -115,7 +125,8 @@ function mapStateToProps(state) {
   //console.log("posts state = ", state.posts);
   return {
     ...state.posts,
-    loading: state.loading
+    loading: state.loading,
+    connection: state.connection
   };
 }
 
