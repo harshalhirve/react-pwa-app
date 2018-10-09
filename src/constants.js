@@ -1,5 +1,6 @@
 const defaultProps = {
-  USER_SESSION: "user"
+  USER_SESSION: "user",
+  CACHE_QUOTA_PERCENTAGE: 40
 };
 module.exports = defaultProps;
 switch (process.env.NODE_ENV) {

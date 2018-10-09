@@ -11,11 +11,16 @@ import * as loadables from "./lodables";
 class RootComponent extends Component {
   componentDidMount() {
     window.addEventListener("online", () => {
-      this.props.setConnectionOn();
+      this.props.connection();
     });
     window.addEventListener("offline", () => {
-      this.props.setConnectionOff();
+      this.props.connection();
     });
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener("online", function() {});
+    window.removeEventListener("offline", function() {});
   }
 
   render() {

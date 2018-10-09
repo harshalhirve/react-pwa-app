@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
+import * as cacheActions from "../../actions/cacheActions";
 import * as postActions from "../../actions/postActions";
 import { Link } from "react-router-dom";
 import styles from "../../../assets/css/styles.css";
@@ -21,6 +22,17 @@ class PostList extends Component {
     this.deletePost = this.deletePost.bind(this);
   }
 
+  componentDidMount() {
+    this.props.checkQuota();
+    this.getPostsList();
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.connection === false && this.props.connection === true) {
+      this.getPostsList();
+    }
+  }
+
   clearAllPostMsgs() {
     this.props.clearAllPostMsgs();
   }
@@ -37,10 +49,7 @@ class PostList extends Component {
   }
 
   render() {
-    const { loading, list, sucMsg, errorMsg, connection } = this.props;
-
-    console.log("post list connection=", connection);
-
+    const { loading, list, sucMsg, errorMsg, connection, cache } = this.props;
     return (
       <table
         border="0"
@@ -57,26 +66,41 @@ class PostList extends Component {
           </tr>
           <tr>
             <td>
-              <table border="0" align="center" cellPadding="2" cellSpacing="2">
+              <table
+                border="0"
+                align="center"
+                cellPadding="2"
+                cellSpacing="2"
+                width="85%"
+              >
                 <tbody>
                   {!connection && (
-                    <>
-                      <tr>
-                        <td
-                          align="center"
-                          colSpan="2"
-                          className={styles.offlineMsg}
-                        >
-                          You are offline! Please check your connection.
-                        </td>
-                      </tr>
-                    </>
+                    <tr>
+                      <td
+                        align="center"
+                        colSpan="2"
+                        className={styles.offlineMsg}
+                      >
+                        You are offline! Please check your connection.
+                      </td>
+                    </tr>
+                  )}
+                  {cache.warning && (
+                    <tr>
+                      <td
+                        align="center"
+                        colSpan="2"
+                        className={styles.offlineMsg}
+                      >
+                        {cache.message}
+                      </td>
+                    </tr>
                   )}
                   <tr>
-                    <td className={styles.pageTitle} align="left">
+                    <td className={styles.pageTitle} align="left" width="50%">
                       Post List
                     </td>
-                    <td align="right">
+                    <td align="right" width="50%">
                       <Link
                         to="/post/addnew"
                         onClick={() => {
@@ -125,6 +149,7 @@ function mapStateToProps(state) {
   //console.log("posts state = ", state.posts);
   return {
     ...state.posts,
+    cache: state.cache,
     loading: state.loading,
     connection: state.connection
   };
@@ -132,7 +157,10 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    ...bindActionCreators(Object.assign({}, postActions), dispatch)
+    ...bindActionCreators(
+      Object.assign({}, postActions, cacheActions),
+      dispatch
+    )
   };
 }
 

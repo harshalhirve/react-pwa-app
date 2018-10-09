@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { Redirect } from "react-router-dom";
 import * as userActions from "../../actions/userActions";
+import * as cacheActions from "../../actions/cacheActions";
 import styles from "../../../assets/css/styles.css";
 import image1 from "../../../assets/images/img1.jpg";
 
@@ -13,12 +14,15 @@ class HomeComponent extends Component {
       email: "hh@hh.com",
       emailErr: false,
       password: "password1234",
-      passwordErr: false,
-      online: navigator.onLine
+      passwordErr: false
     };
     this.handleChange = this.handleChange.bind(this);
     this.validateForm = this.validateForm.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  componentDidMount() {
+    this.props.checkQuota();
   }
 
   handleChange(e) {
@@ -34,7 +38,6 @@ class HomeComponent extends Component {
     return new Promise(resolve => {
       this.setState(
         {
-          online: navigator.onLine,
           emailErr: this.state.email.trim() === "" ? true : false,
           passwordErr: this.state.password.trim() === "" ? true : false
         },
@@ -60,10 +63,7 @@ class HomeComponent extends Component {
   }
 
   render() {
-    const { loggedIn, loading, connection } = this.props;
-
-    console.log("login connection=", connection);
-
+    const { loggedIn, loading, connection, cache } = this.props;
     if (loggedIn) {
       return (
         <Redirect
@@ -88,17 +88,18 @@ class HomeComponent extends Component {
           <table border="0" align="center" cellPadding="2" cellSpacing="2">
             <tbody>
               {!connection && (
-                <>
-                  <tr>
-                    <td
-                      align="center"
-                      colSpan="2"
-                      className={styles.offlineMsg}
-                    >
-                      You are offline! Please check your connection.
-                    </td>
-                  </tr>
-                </>
+                <tr>
+                  <td align="center" colSpan="2" className={styles.offlineMsg}>
+                    You are offline! Please check your connection.
+                  </td>
+                </tr>
+              )}
+              {cache.warning && (
+                <tr>
+                  <td align="center" colSpan="2" className={styles.offlineMsg}>
+                    {cache.message}
+                  </td>
+                </tr>
               )}
               <tr>
                 <td colSpan="2" align="center">
@@ -143,7 +144,7 @@ class HomeComponent extends Component {
                     type="submit"
                     value={loading ? "Processing..." : "Login"}
                     className={styles.button}
-                    disabled={!this.state.online || loading ? true : false}
+                    disabled={!connection || loading ? true : false}
                   />
                 </td>
               </tr>
@@ -157,9 +158,9 @@ class HomeComponent extends Component {
 
 function mapStateToProps(state) {
   //console.log("user state = ", state.user);
-  //console.log(state);
   return {
     ...state.user,
+    cache: state.cache,
     loading: state.loading,
     connection: state.connection
   };
@@ -167,7 +168,10 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    ...bindActionCreators(Object.assign({}, userActions), dispatch)
+    ...bindActionCreators(
+      Object.assign({}, userActions, cacheActions),
+      dispatch
+    )
   };
 }
 

@@ -2,12 +2,12 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { Redirect, Prompt } from "react-router-dom";
+import * as cacheActions from "../../actions/cacheActions";
 import * as postActions from "../../actions/postActions";
 import styles from "../../../assets/css/styles.css";
 import Header from "../common/Header";
 import TopLinks from "../../components/common/TopLinks";
 import ErrorMsg from "../../components/common/ErrorMsg";
-import * as cf from "../../commonFunctions";
 
 class PostAddNew extends Component {
   constructor() {
@@ -24,6 +24,10 @@ class PostAddNew extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.validateForm = this.validateForm.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  componentDidMount() {
+    this.props.checkQuota();
   }
 
   handleChange(e) {
@@ -55,8 +59,7 @@ class PostAddNew extends Component {
   async handleSubmit(e) {
     e.preventDefault();
     this.props.clearPostErrMsgs();
-    const netConnected = await cf.checkConnection();
-    if (netConnected) {
+    if (this.props.connection) {
       if (await this.validateForm()) {
         await this.props.saveNewPost({
           title: this.state.postTitle,
@@ -68,7 +71,7 @@ class PostAddNew extends Component {
   }
 
   render() {
-    const { loading, sucMsg, errorMsg } = this.props;
+    const { loading, sucMsg, errorMsg, connection, cache } = this.props;
     if (sucMsg !== "") {
       return (
         <Redirect
@@ -99,6 +102,7 @@ class PostAddNew extends Component {
                   align="center"
                   cellPadding="2"
                   cellSpacing="2"
+                  width="50%"
                 >
                   <tbody>
                     <tr>
@@ -120,21 +124,31 @@ class PostAddNew extends Component {
                             align="center"
                             cellPadding="6"
                             cellSpacing="0"
+                            width="50%"
                           >
                             <tbody>
-                              {!this.state.online && (
-                                <>
-                                  <tr>
-                                    <td
-                                      colSpan="2"
-                                      align="center"
-                                      className={styles.offlineMsg}
-                                    >
-                                      You are offline! Please check your
-                                      connection.
-                                    </td>
-                                  </tr>
-                                </>
+                              {!connection && (
+                                <tr>
+                                  <td
+                                    colSpan="2"
+                                    align="center"
+                                    className={styles.offlineMsg}
+                                  >
+                                    You are offline! Please check your
+                                    connection.
+                                  </td>
+                                </tr>
+                              )}
+                              {cache.warning && (
+                                <tr>
+                                  <td
+                                    align="center"
+                                    colSpan="2"
+                                    className={styles.offlineMsg}
+                                  >
+                                    {cache.message}
+                                  </td>
+                                </tr>
                               )}
                               <tr>
                                 <td>Title</td>
@@ -149,7 +163,7 @@ class PostAddNew extends Component {
                                         ? styles.textBoxErr
                                         : styles.textBox
                                     }
-                                    size="100"
+                                    size="70"
                                     onChange={this.handleChange}
                                   />
                                 </td>
@@ -166,8 +180,8 @@ class PostAddNew extends Component {
                                         ? styles.textBoxErr
                                         : styles.textBox
                                     }
-                                    rows="5"
-                                    cols="101"
+                                    rows="8"
+                                    cols="71"
                                     onChange={this.handleChange}
                                   />
                                 </td>
@@ -179,9 +193,7 @@ class PostAddNew extends Component {
                                     value={loading ? "Saving..." : "Submit"}
                                     className={styles.button}
                                     disabled={
-                                      !this.state.online || loading
-                                        ? true
-                                        : false
+                                      !connection || loading ? true : false
                                     }
                                   />
                                 </td>
@@ -206,13 +218,18 @@ function mapStateToProps(state) {
   //console.log("posts state = ", state.posts);
   return {
     ...state.posts,
-    loading: state.loading
+    cache: state.cache,
+    loading: state.loading,
+    connection: state.connection
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    ...bindActionCreators(Object.assign({}, postActions), dispatch)
+    ...bindActionCreators(
+      Object.assign({}, postActions, cacheActions),
+      dispatch
+    )
   };
 }
 

@@ -7,6 +7,9 @@ const TopLinks = () => (
       <table border="0" align="center" cellPadding="0" cellSpacing="0">
         <tbody>
           <tr>
+            <td>&nbsp;</td>
+          </tr>
+          <tr>
             <td>
               <Link to="/posts">Posts</Link>
             </td>
@@ -14,6 +17,9 @@ const TopLinks = () => (
             <td>
               <Link to="/news">News</Link>
             </td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
           </tr>
         </tbody>
       </table>

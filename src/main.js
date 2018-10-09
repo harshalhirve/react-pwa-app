@@ -2,7 +2,6 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter, Route } from "react-router-dom";
 import { Provider } from "react-redux";
-import pretty from "prettysize";
 import configureStore from "./store/configureStore";
 import RootComponent from "./components/RootComponent";
 import { validateLoginSuccess } from "./actions/userActions";
@@ -22,13 +21,6 @@ if (savedUser) {
       token: savedUser.token
     })
   );
-}
-
-if ("storage" in navigator && "estimate" in navigator.storage) {
-  navigator.storage.estimate().then(estimate => {
-    //console.log("usage = " + pretty(estimate.usage));
-    //console.log("quota = " + pretty(estimate.quota));
-  });
 }
 
 ReactDOM.render(

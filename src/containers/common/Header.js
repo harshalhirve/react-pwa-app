@@ -20,6 +20,9 @@ class Header extends Component {
           <table border="0" align="right" cellPadding="0" cellSpacing="0">
             <tbody>
               <tr>
+                <td>&nbsp;</td>
+              </tr>
+              <tr>
                 <td>
                   Welcome! {this.props.firstName}
                   &nbsp;

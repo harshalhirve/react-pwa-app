@@ -1,5 +1,9 @@
 export default {
-  connection: undefined,
+  connection: navigator.onLine,
+  cache: {
+    warning: false,
+    message: ""
+  },
   loading: false,
   user: {
     loggedIn: false,
