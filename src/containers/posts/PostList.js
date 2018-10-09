@@ -102,7 +102,7 @@ class PostList extends Component {
                     </td>
                     <td align="right" width="50%">
                       <Link
-                        to="/post/addnew"
+                        to="/addnew"
                         onClick={() => {
                           this.clearAllPostMsgs();
                         }}

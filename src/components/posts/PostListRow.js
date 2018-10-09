@@ -19,7 +19,7 @@ const PostListRow = ({ record, clearAllPostMsgs, deletePost }) => {
             </tr>
             <tr>
               <td>
-                <Link to={`/post/edit/${record.id}`} onClick={clearAllPostMsgs}>
+                <Link to={`/edit/${record.id}`} onClick={clearAllPostMsgs}>
                   Edit
                 </Link>
                 &nbsp;&nbsp;|&nbsp;&nbsp;

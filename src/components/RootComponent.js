@@ -46,12 +46,12 @@ class RootComponent extends Component {
                   />
                   <PrivateRoute
                     authed={loggedIn}
-                    path="/post/addnew"
+                    path="/addnew"
                     component={loadables.PostAddNew}
                   />
                   <PrivateRoute
                     authed={loggedIn}
-                    path="/post/edit/:id"
+                    path="/edit/:id"
                     component={loadables.PostEdit}
                   />
                   <Route path="**" component={NotFoundComponent} />

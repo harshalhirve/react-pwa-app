@@ -13,6 +13,7 @@
 .env.production.local
 .idea
 .vscode
+_redirects
 
 npm-debug.log*
 yarn-debug.log*
