@@ -4,7 +4,8 @@ module.exports = function(api) {
     presets: ["@babel/env", "@babel/react"],
     plugins: [
       "@babel/plugin-transform-runtime",
-      "@babel/plugin-syntax-dynamic-import"
+      "@babel/plugin-syntax-dynamic-import",
+      "@babel/plugin-transform-async-to-generator"
     ]
   };
 };
