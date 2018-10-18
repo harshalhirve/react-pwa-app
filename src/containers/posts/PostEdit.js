@@ -4,7 +4,7 @@ import { bindActionCreators } from "redux";
 import { Redirect, Prompt } from "react-router-dom";
 import * as cacheActions from "../../actions/cacheActions";
 import * as postActions from "../../actions/postActions";
-import styles from "../../../assets/css/styles.css";
+import "../../assets/css/styles.css";
 import Header from "../common/Header";
 import TopLinks from "../../components/common/TopLinks";
 import ErrorMsg from "../../components/common/ErrorMsg";
@@ -132,7 +132,7 @@ class PostEdit extends Component {
                 >
                   <tbody>
                     <tr>
-                      <td className={styles.pageTitle}>Edit Post</td>
+                      <td className="pageTitle">Edit Post</td>
                     </tr>
                     <tr>
                       <td>&nbsp;</td>
@@ -158,7 +158,7 @@ class PostEdit extends Component {
                                   <td
                                     colSpan="2"
                                     align="center"
-                                    className={styles.offlineMsg}
+                                    className="offlineMsg"
                                   >
                                     You are offline! Please check your
                                     connection.
@@ -170,7 +170,7 @@ class PostEdit extends Component {
                                   <td
                                     align="center"
                                     colSpan="2"
-                                    className={styles.offlineMsg}
+                                    className="offlineMsg"
                                   >
                                     {cache.message}
                                   </td>
@@ -186,8 +186,8 @@ class PostEdit extends Component {
                                     maxLength="500"
                                     className={
                                       this.state.postTitleErr
-                                        ? styles.textBoxErr
-                                        : styles.textBox
+                                        ? "textBoxErr"
+                                        : "textBox"
                                     }
                                     size="70"
                                     onChange={this.handleChange}
@@ -203,8 +203,8 @@ class PostEdit extends Component {
                                     maxLength="5000"
                                     className={
                                       this.state.postBodyErr
-                                        ? styles.textBoxErr
-                                        : styles.textBox
+                                        ? "textBoxErr"
+                                        : "textBox"
                                     }
                                     rows="8"
                                     cols="71"
@@ -220,7 +220,7 @@ class PostEdit extends Component {
                                     disabled={
                                       !connection || loading ? true : false
                                     }
-                                    className={styles.button}
+                                    className="button"
                                   />
                                 </td>
                               </tr>

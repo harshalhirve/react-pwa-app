@@ -1,10 +1,15 @@
-.textBox {
+body {
   font-family: "Roboto Condensed", sans-serif;
-  font-size: 20px;
+  margin: 0px;
+  background-color: #e3f2fd;
+}
+table tr td {
+  font-family: "Roboto Condensed", sans-serif;
+  font-size: 16px;
 }
 .textBox {
+  font-family: "Roboto Condensed", sans-serif;
   font-size: 16px;
-  padding: 3px;
 }
 .textBoxErr {
   font-size: 16px;

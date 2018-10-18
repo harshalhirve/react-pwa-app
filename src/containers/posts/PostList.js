@@ -4,7 +4,7 @@ import { bindActionCreators } from "redux";
 import * as cacheActions from "../../actions/cacheActions";
 import * as postActions from "../../actions/postActions";
 import { Link } from "react-router-dom";
-import styles from "../../../assets/css/styles.css";
+import "../../assets/css/styles.css";
 import Header from "../common/Header";
 import TopLinks from "../../components/common/TopLinks";
 import PostListRows from "../../components/posts/PostListRows";
@@ -76,28 +76,20 @@ class PostList extends Component {
                 <tbody>
                   {!connection && (
                     <tr>
-                      <td
-                        align="center"
-                        colSpan="2"
-                        className={styles.offlineMsg}
-                      >
+                      <td align="center" colSpan="2" className="offlineMsg">
                         You are offline! Please check your connection.
                       </td>
                     </tr>
                   )}
                   {cache.warning && (
                     <tr>
-                      <td
-                        align="center"
-                        colSpan="2"
-                        className={styles.offlineMsg}
-                      >
+                      <td align="center" colSpan="2" className="offlineMsg">
                         {cache.message}
                       </td>
                     </tr>
                   )}
                   <tr>
-                    <td className={styles.pageTitle} align="left" width="50%">
+                    <td className="pageTitle" align="left" width="50%">
                       Post List
                     </td>
                     <td align="right" width="50%">

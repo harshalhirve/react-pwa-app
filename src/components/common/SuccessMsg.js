@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "../../../assets/css/styles.css";
+import "../../assets/css/styles.css";
 
 const SuccessMsg = ({ sucMsg }) => (
   <tr>
@@ -7,7 +7,7 @@ const SuccessMsg = ({ sucMsg }) => (
       <table border="0" align="center" cellPadding="0" cellSpacing="0">
         <tbody>
           <tr>
-            <td className={styles.sucMsg}>{sucMsg}</td>
+            <td className="sucMsg">{sucMsg}</td>
           </tr>
           <tr>
             <td>&nbsp;</td>

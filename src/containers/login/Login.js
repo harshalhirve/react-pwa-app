@@ -4,8 +4,8 @@ import { bindActionCreators } from "redux";
 import { Redirect } from "react-router-dom";
 import * as userActions from "../../actions/userActions";
 import * as cacheActions from "../../actions/cacheActions";
-import styles from "../../../assets/css/styles.css";
-import image1 from "../../../assets/images/img1.jpg";
+import "../../assets/css/styles.css";
+import image1 from "../../assets/images/img1.jpg";
 
 class HomeComponent extends Component {
   constructor() {
@@ -89,14 +89,14 @@ class HomeComponent extends Component {
             <tbody>
               {!connection && (
                 <tr>
-                  <td align="center" colSpan="2" className={styles.offlineMsg}>
+                  <td align="center" colSpan="2" className="offlineMsg">
                     You are offline! Please check your connection.
                   </td>
                 </tr>
               )}
               {cache.warning && (
                 <tr>
-                  <td align="center" colSpan="2" className={styles.offlineMsg}>
+                  <td align="center" colSpan="2" className="offlineMsg">
                     {cache.message}
                   </td>
                 </tr>
@@ -114,9 +114,7 @@ class HomeComponent extends Component {
                     name="email"
                     value={this.state.email}
                     maxLength="200"
-                    className={
-                      this.state.emailErr ? styles.textBoxErr : styles.textBox
-                    }
+                    className={this.state.emailErr ? "textBoxErr" : "textBox"}
                     onChange={this.handleChange}
                     required
                   />
@@ -130,9 +128,7 @@ class HomeComponent extends Component {
                     name="password"
                     value={this.state.password}
                     maxLength="20"
-                    className={
-                      this.state.emailErr ? styles.textBoxErr : styles.textBox
-                    }
+                    className={this.state.emailErr ? "textBoxErr" : "textBox"}
                     onChange={this.handleChange}
                     required
                   />
@@ -143,7 +139,7 @@ class HomeComponent extends Component {
                   <input
                     type="submit"
                     value={loading ? "Processing..." : "Login"}
-                    className={styles.button}
+                    className="button"
                     disabled={!connection || loading ? true : false}
                   />
                 </td>

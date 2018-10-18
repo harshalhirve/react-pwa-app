@@ -6,7 +6,7 @@ import configureStore from "./store/configureStore";
 import RootComponent from "./components/RootComponent";
 import { validateLoginSuccess } from "./actions/userActions";
 import * as cf from "./commonFunctions";
-import "../assets/css/gstyles.css";
+import * as serviceWorker from "./serviceWorker";
 
 const store = configureStore();
 
@@ -29,5 +29,8 @@ ReactDOM.render(
       <Route component={RootComponent} />
     </Provider>
   </BrowserRouter>,
-  document.getElementById("container")
+  document.getElementById("root")
 );
+
+serviceWorker.register();
+//serviceWorker.unregister();
