@@ -469,10 +469,8 @@ module.exports = {
     // Generate a service worker script that will precache, and keep up to date,
     // the HTML & assets that are part of the Webpack build.
     new WorkboxWebpackPlugin.InjectManifest({
-      importWorkboxFrom: "cdn",
-      include: [/\.html$/, /\.js$/, /\.jpg$/, /\.png$/, /\.jsx$/],
       swSrc: "./src/src-sw.js",
-      swDest: "sw.js"
+      swDest: "service-worker.js"
     })
   ].filter(Boolean),
   // Some libraries import Node modules but don't use them in the browser.

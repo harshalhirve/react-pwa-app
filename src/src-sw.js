@@ -1,3 +1,5 @@
+console.log("⚙️ Hello from Service Worker");
+
 //images
 workbox.routing.registerRoute(
   /.*\.(?:png|jpg|jpeg|svg|gif)/g,
