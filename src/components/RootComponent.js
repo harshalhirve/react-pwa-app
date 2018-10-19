@@ -41,8 +41,18 @@ class RootComponent extends Component {
                   <Route exact path="/" component={loadables.Login} />
                   <PrivateRoute
                     authed={loggedIn}
+                    path="/dashboard"
+                    component={loadables.Dashboard}
+                  />
+                  <PrivateRoute
+                    authed={loggedIn}
                     path="/posts"
                     component={loadables.PostList}
+                  />
+                  <PrivateRoute
+                    authed={loggedIn}
+                    path="/news"
+                    component={loadables.NewsList}
                   />
                   <PrivateRoute
                     authed={loggedIn}

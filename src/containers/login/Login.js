@@ -68,7 +68,7 @@ class HomeComponent extends Component {
       return (
         <Redirect
           to={{
-            pathname: "/posts"
+            pathname: "/dashboard"
           }}
         />
       );
@@ -84,69 +84,96 @@ class HomeComponent extends Component {
         );
       }
       return (
-        <form name="form1" onSubmit={this.handleSubmit}>
-          <table border="0" align="center" cellPadding="2" cellSpacing="2">
-            <tbody>
-              {!connection && (
-                <tr>
-                  <td align="center" colSpan="2" className="offlineMsg">
-                    You are offline! Please check your connection.
-                  </td>
-                </tr>
-              )}
-              {cache.warning && (
-                <tr>
-                  <td align="center" colSpan="2" className="offlineMsg">
-                    {cache.message}
-                  </td>
-                </tr>
-              )}
-              <tr>
-                <td colSpan="2" align="center">
-                  <img src={image1} width="100" />
-                </td>
-              </tr>
-              <tr>
-                <td>Email</td>
-                <td>
-                  <input
-                    type="email"
-                    name="email"
-                    value={this.state.email}
-                    maxLength="200"
-                    className={this.state.emailErr ? "textBoxErr" : "textBox"}
-                    onChange={this.handleChange}
-                    required
-                  />
-                </td>
-              </tr>
-              <tr>
-                <td>Password</td>
-                <td>
-                  <input
-                    type="password"
-                    name="password"
-                    value={this.state.password}
-                    maxLength="20"
-                    className={this.state.emailErr ? "textBoxErr" : "textBox"}
-                    onChange={this.handleChange}
-                    required
-                  />
-                </td>
-              </tr>
-              <tr>
-                <td colSpan="2" align="center">
-                  <input
-                    type="submit"
-                    value={loading ? "Processing..." : "Login"}
-                    className="button"
-                    disabled={!connection || loading ? true : false}
-                  />
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </form>
+        <table
+          border="0"
+          align="center"
+          cellPadding="0"
+          cellSpacing="0"
+          width="100%"
+        >
+          <tbody>
+            <tr>
+              <td>&nbsp;</td>
+            </tr>
+            <tr>
+              <td>
+                <form name="form1" onSubmit={this.handleSubmit}>
+                  <table
+                    border="0"
+                    align="center"
+                    cellPadding="2"
+                    cellSpacing="2"
+                    className="dataTable"
+                  >
+                    <tbody>
+                      {!connection && (
+                        <tr>
+                          <td align="center" colSpan="2" className="offlineMsg">
+                            You are offline! Please check your connection.
+                          </td>
+                        </tr>
+                      )}
+                      {cache.warning && (
+                        <tr>
+                          <td align="center" colSpan="2" className="offlineMsg">
+                            {cache.message}
+                          </td>
+                        </tr>
+                      )}
+                      <tr>
+                        <td colSpan="2" align="center">
+                          <img src={image1} width="100" />
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Email</td>
+                        <td>
+                          <input
+                            type="email"
+                            name="email"
+                            value={this.state.email}
+                            maxLength="200"
+                            className={
+                              this.state.emailErr ? "textBoxErr" : "textBox"
+                            }
+                            onChange={this.handleChange}
+                            required
+                          />
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Password</td>
+                        <td>
+                          <input
+                            type="password"
+                            name="password"
+                            value={this.state.password}
+                            maxLength="20"
+                            className={
+                              this.state.emailErr ? "textBoxErr" : "textBox"
+                            }
+                            onChange={this.handleChange}
+                            required
+                          />
+                        </td>
+                      </tr>
+                      <tr>
+                        <td colSpan="2" align="center">
+                          <input
+                            type="submit"
+                            value={loading ? "Processing..." : "Login"}
+                            className="button"
+                            disabled={!connection || loading ? true : false}
+                          />
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </form>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       );
     }
   }

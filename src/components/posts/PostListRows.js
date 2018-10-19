@@ -5,7 +5,7 @@ const PostListRows = ({ loading, postList, clearAllPostMsgs, deletePost }) => {
   if (loading) {
     return (
       <tr>
-        <td>Loading...</td>
+        <td>Fetching Posts...</td>
       </tr>
     );
   } else if (postList.length === 0) {

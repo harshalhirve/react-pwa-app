@@ -2,8 +2,17 @@ import axios from "axios";
 import c from "./constants";
 
 export function getAxios(type) {
+  let baseURL;
+  switch (type) {
+    case "user":
+      baseURL = c.USER_API_BASE_URL;
+      break;
+    case "posts":
+      baseURL = c.POST_API_BASE_URL;
+      break;
+  }
   return axios.create({
-    baseURL: type === "user" ? c.USER_API_BASE_URL : c.POST_API_BASE_URL,
+    baseURL,
     headers: {
       "Content-type": "application/json; charset=UTF-8"
     }

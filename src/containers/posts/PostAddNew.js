@@ -124,7 +124,8 @@ class PostAddNew extends Component {
                             align="center"
                             cellPadding="6"
                             cellSpacing="0"
-                            width="50%"
+                            width="80%"
+                            className="dataTable"
                           >
                             <tbody>
                               {!connection && (

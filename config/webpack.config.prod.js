@@ -18,6 +18,7 @@ const paths = require("./paths");
 const getClientEnvironment = require("./env");
 const ModuleNotFoundPlugin = require("react-dev-utils/ModuleNotFoundPlugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
+const c = require("./webpack.constants");
 
 // Webpack uses `publicPath` to determine where the app is being served from.
 // It requires a trailing slash, or the file assets will get an incorrect path.
@@ -495,6 +496,15 @@ module.exports = {
           handler: "cacheFirst",
           options: {
             cacheName: "posts"
+          }
+        },
+        {
+          urlPattern:
+            "https://newsapi.org/v2/top-headlines?sources=google-news-in&apiKey=" +
+            c.NEWS_API_KEY,
+          handler: "cacheFirst",
+          options: {
+            cacheName: "news"
           }
         },
         {

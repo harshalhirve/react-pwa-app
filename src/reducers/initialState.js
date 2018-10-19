@@ -20,5 +20,11 @@ export default {
     errorMsg: "",
     list: [],
     details: {}
+  },
+  news: {
+    sucMsg: "",
+    errorCode: "",
+    errorMsg: "",
+    list: []
   }
 };

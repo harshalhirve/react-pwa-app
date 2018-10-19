@@ -11,6 +11,10 @@ const TopLinks = () => (
           </tr>
           <tr>
             <td>
+              <Link to="/dashboard">Dashboard</Link>
+            </td>
+            <td>&nbsp;&nbsp;|&nbsp;&nbsp;</td>
+            <td>
               <Link to="/posts">Posts</Link>
             </td>
             <td>&nbsp;&nbsp;|&nbsp;&nbsp;</td>

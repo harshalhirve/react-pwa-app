@@ -6,8 +6,18 @@ export const Login = Loadable({
   loading: () => <div>Loading....</div>
 });
 
+export const Dashboard = Loadable({
+  loader: () => import("../containers/dashboard/Dashboard"),
+  loading: () => <div>Loading....</div>
+});
+
 export const PostList = Loadable({
   loader: () => import("../containers/posts/PostList"),
+  loading: () => <div>Loading....</div>
+});
+
+export const NewsList = Loadable({
+  loader: () => import("../containers/news/NewsList"),
   loading: () => <div>Loading....</div>
 });
 

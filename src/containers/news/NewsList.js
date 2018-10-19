@@ -2,54 +2,36 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as cacheActions from "../../actions/cacheActions";
-import * as postActions from "../../actions/postActions";
-import { Link } from "react-router-dom";
+import * as newsActions from "../../actions/newsActions";
 import "../../assets/css/styles.css";
 import Header from "../common/Header";
 import TopLinks from "../../components/common/TopLinks";
-import PostListRows from "../../components/posts/PostListRows";
+import NewsListRows from "../../components/news/NewsListRows";
 import SuccessMsg from "../../components/common/SuccessMsg";
 import ErrorMsg from "../../components/common/ErrorMsg";
 
-class PostList extends Component {
+class NewsList extends Component {
   constructor() {
     super();
     this.state = {
       online: navigator.onLine
     };
-    this.getPostsList = this.getPostsList.bind(this);
-    this.clearAllPostMsgs = this.clearAllPostMsgs.bind(this);
-    this.deletePost = this.deletePost.bind(this);
+    this.getNewsList = this.getNewsList.bind(this);
   }
 
   componentDidMount() {
     this.props.checkQuota();
-    this.getPostsList();
-  }
-
-  componentWillUnmount(){
-    this.props.clearAllPostMsgs();
+    this.getNewsList();
   }
 
   componentDidUpdate(prevProps) {
     if (prevProps.connection === false && this.props.connection === true) {
-      this.getPostsList();
+      this.getNewsList();
     }
   }
 
-  clearAllPostMsgs() {
-    this.props.clearAllPostMsgs();
-  }
-
-  async getPostsList() {
-    await this.props.getPostsList();
-  }
-
-  async deletePost(id) {
-    this.clearAllPostMsgs();
-    if (this.props.connection) {
-      await this.props.deletePost(id);
-    }
+  async getNewsList() {
+    await this.props.getNewsList();
   }
 
   render() {
@@ -95,17 +77,10 @@ class PostList extends Component {
                   )}
                   <tr>
                     <td className="pageTitle" align="left" width="50%">
-                      Post List
+                      News List
                     </td>
                     <td align="right" width="50%">
-                      <Link
-                        to="/addnew"
-                        onClick={() => {
-                          this.clearAllPostMsgs();
-                        }}
-                      >
-                        Add New
-                      </Link>
+                      &nbsp;
                     </td>
                   </tr>
                   <tr>
@@ -122,12 +97,7 @@ class PostList extends Component {
                         cellSpacing="0"
                       >
                         <tbody>
-                          <PostListRows
-                            loading={loading}
-                            postList={list}
-                            clearAllPostMsgs={this.clearAllPostMsgs}
-                            deletePost={this.deletePost}
-                          />
+                          <NewsListRows loading={loading} newsList={list} />
                         </tbody>
                       </table>
                     </td>
@@ -143,9 +113,8 @@ class PostList extends Component {
 }
 
 function mapStateToProps(state) {
-  //console.log("posts state = ", state.posts);
   return {
-    ...state.posts,
+    ...state.news,
     cache: state.cache,
     loading: state.loading,
     connection: state.connection
@@ -155,7 +124,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     ...bindActionCreators(
-      Object.assign({}, postActions, cacheActions),
+      Object.assign({}, newsActions, cacheActions),
       dispatch
     )
   };
@@ -164,4 +133,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(PostList);
+)(NewsList);
